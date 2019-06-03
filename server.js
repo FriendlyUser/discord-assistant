@@ -37,9 +37,60 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
+function formatDate(date) {
+  var d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+
+  return [year, month, day].join('-');
+}
+
 client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('pong')
+  }
+  // option 2 would be to ask for multiple content
+  if(msg.content.includes("!addtask")) 
+  {
+    console.log(msg)
+    var msg_info = msg.content
+    // should have name, category and priority seperated by commas
+    var data = msg_info.split(",");
+    // have days via gitlab ci format w,m,h
+    // hardcode for the first task
+    let start_date = new Date()
+    let end_date = start_date 
+    end_date.setDate(end_date.getDate() + 7)
+    console.log(data)
+    let query = `
+      mutation {
+        addTask(name: "${data[1]}", start_date: "${formatDate(start_date)}", end_date: "${formatDate(end_date)}", category: "${data[2]}", priority: "${data[3]}") {
+            id
+            name
+            start_date
+            end_date
+            category
+            priority
+        }
+    }`
+    console.log(query)
+    request('http://localhost:9000/graphql', query)
+    .then(data => {
+      // console.log(data)
+      // need helper function to convert json to parsable discord statements.
+      msg.reply(JSON.stringify(data))
+    })
+    .catch(err => {
+      msg.reply(JSON.stringify(err))
+    })
+    
+  }
+  if(msg.content === '!help') {
+    msg.send("Help is out the way")
   }
   if(msg.content === '!tasks') {
     let query = `{
@@ -50,6 +101,7 @@ client.on('message', msg => {
     }`
     request('http://localhost:9000/graphql', query)
     .then(data => {
+      console.log(data)
       msg.reply(JSON.stringify(data))
     })
     .catch(err => {
