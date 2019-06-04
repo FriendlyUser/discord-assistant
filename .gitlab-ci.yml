@@ -1,4 +1,4 @@
-image: node:10-alpine
+image: node:10
 
 stages:
   - test
@@ -18,7 +18,8 @@ test:
   before_script:
     - npm install
     - npm install pm2 -g 
-    - chmod +x setup_env.sh && ./setup_env.sh
+    # - chmod +x setup_env.sh && ./setup_env.sh
+    - echo $TEST_MONGO_DB >> .env
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
   script:
     - npm run test
