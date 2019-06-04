@@ -32,10 +32,6 @@ app.on('error', err => {
   log.error('server error', err)
 });
 
-// discord content for todo list
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
 
 function formatDate(date) {
   var d = new Date(date),
@@ -48,6 +44,14 @@ function formatDate(date) {
 
   return [year, month, day].join('-');
 }
+
+if(process.env.NODE_ENV != 'testing')
+{
+
+// discord content for todo list
+client.on('ready', () => {
+  console.log(`Logged in as ${client.user.tag}!`);
+});
 
 client.on('message', msg => {
   if (msg.content === 'ping') {
@@ -129,7 +133,7 @@ client.on('message', msg => {
         send_arr.push(`--------------------------------------`)
         // msg.channel.send(`--------------------------------------`)
       });
-      msg.channel.sendCode(send_arr.join('\n'))
+
       msg.channel.send(send_arr.join('\n'))
       // let obj_keys = Object.keys(data[query_name])
       // console.log(query_name)
@@ -150,3 +154,5 @@ client.on('message', msg => {
 
 // get new token later
 client.login(process.env.DISCORD_TOKEN)
+
+}

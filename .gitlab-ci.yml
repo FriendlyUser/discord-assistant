@@ -1,0 +1,26 @@
+image: node:10-alpine
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  services:
+    - mongo:latest
+  variables:
+    AUTH: y
+    ADMIN_USER: admin123
+    ADMIN_PWD: admin123
+    DB_NAME: test
+    DB_USER: test123
+    DB_PWD: test123
+  before_script:
+    - npm install
+    - npm install pm2 -g 
+    - ./setup_env.sh
+# https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
+  script:
+    - npm run test
+  coverage:
+    '/Statements.*?(\d+(?:\.\d+)?)%/'
