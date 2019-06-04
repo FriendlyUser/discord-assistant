@@ -7,8 +7,8 @@ stages:
 test:
   stage: test
   services:
-    - name: khezen/mongo:3.4
-      alias: mongo
+      name: mongo:latest
+      alias: mongodb
   variables:
     AUTH: y
     ADMIN_USER: admin123
