@@ -18,7 +18,7 @@ test:
   before_script:
     - npm install
     - npm install pm2 -g 
-    - ./setup_env.sh
+    - chmod +x setup_env.sh && ./setup_env.sh
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
   script:
     - npm run test
