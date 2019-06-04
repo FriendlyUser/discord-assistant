@@ -8,7 +8,7 @@ test:
   stage: test
   services:
     -  name: mongo:latest
-       alias: mongo
+       alias: mongo # should be able to connect at this point
   variables:
     AUTH: y
     ADMIN_USER: admin123
@@ -21,6 +21,7 @@ test:
     - npm install pm2 -g 
     # - chmod +x setup_env.sh && ./setup_env.sh
     - echo $TEST_MONGO_DB >> .env
+    - echo $TEST_MONGO_DB
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
   script:
     - npm run test
