@@ -10,7 +10,7 @@ test:
     -  name: mongo:latest
        alias: mongodb # should be able to connect at this point
   variables:
-    MONGO_URI: 'mongodb://mongo/koa-mongo-discordt'
+    MONGO_URI: 'mongodb://mongo:27020/koa-mongo-discord'
   before_script:
     - npm install
     - npm install pm2 -g 
