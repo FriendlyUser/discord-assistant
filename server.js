@@ -96,13 +96,49 @@ client.on('message', msg => {
     let query = `{
       queryAllTasks {
         name,
-        id
+        id,
+        start_date,
+        end_date,
+        category,
+        priority
       }
     }`
     request('http://localhost:9000/graphql', query)
     .then(data => {
-      console.log(data)
-      msg.reply(JSON.stringify(data))
+
+      // get first key
+      var keys = Object.keys(data);
+      // access first object
+      console.log(keys)
+      console.log(typeof(data))
+      let data_cool = data[keys[0]]
+      msg.channel.send("Getting Todo list data")
+      // console.log(data)
+      // msg.channel.send(JSON.stringify(data))
+      // get each object of arrays
+      let send_arr = []
+      data_cool.forEach(function (todo, index) {
+        console.log(todo, index);
+        // msg.channel.send(item)
+        let item_keys = Object.keys(todo)
+        item_keys.forEach(function (data_item, index) {
+          // msg.channel.send(" --- " + data_item + todo[data_item])
+          if (todo[data_item]) send_arr.push(`:crossed_swords:    **${data_item}**: ${todo[data_item]}`)// msg.channel.send(`:crossed_swords:    **${data_item}**: ${todo[data_item]}`)
+          // convert timestamps to 
+        })
+        send_arr.push(`--------------------------------------`)
+        // msg.channel.send(`--------------------------------------`)
+      });
+      msg.channel.sendCode(send_arr.join('\n'))
+      msg.channel.send(send_arr.join('\n'))
+      // let obj_keys = Object.keys(data[query_name])
+      // console.log(query_name)
+      // console.log(obj_keys)
+      // for (const key of obj_keys) {
+      //   console.log(key)
+      // }
+
+      // iterate across keys
     })
     .catch(err => {
       msg.reply(JSON.stringify(err))
