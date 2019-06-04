@@ -7,8 +7,8 @@ stages:
 test:
   stage: test
   services:
-      name: mongo:latest
-      alias: mongo
+    -  name: mongo:latest
+       alias: mongo
   variables:
     AUTH: y
     ADMIN_USER: admin123
