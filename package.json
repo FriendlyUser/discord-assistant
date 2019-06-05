@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "cross-env NODE_ENV=development pm2 start server.js",
-    "test": "cross-env NODE_ENV=testing node server.js > /dev/null && mocha tests/*.test.js",
+    "test": "cross-env NODE_ENV=testing pm2 start server.js && mocha tests/*.test.js",
     "posttest": "pm2 kill"
   },
   "keywords": [],
