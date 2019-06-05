@@ -19,6 +19,6 @@ test:
     - echo $MONGO_URI
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
   script:
-    - npm run test
+    - node server.js
   coverage:
     '/Statements.*?(\d+(?:\.\d+)?)%/'
