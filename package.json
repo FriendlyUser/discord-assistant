@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development pm2 start server.js",
+    "start-test": "ts-node ./server.ts",
+    "start": "cross-env NODE_ENV=development pm2 start ts-node -- -P tsconfig.json ./server.ts",
     "test": "cross-env NODE_ENV=testing pm2 start server.js && mocha tests/*.test.js",
     "posttest": "pm2 kill"
   },
@@ -22,9 +23,17 @@
     "mongoose": "^5.5.12"
   },
   "devDependencies": {
+    "@types/koa": "^2.0.48",
+    "@types/graphql": "^14.2.0",
+    "@types/koa-mount": "^3.0.1",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa-router": "^7.0.40",
+    "@types/mongoose": "^5.5.5",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "mocha": "^6.1.4",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "ts-node": "^8.2.0",
+    "typescript": "^3.5.1"
   }
 }

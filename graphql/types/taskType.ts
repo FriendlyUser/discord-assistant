@@ -1,6 +1,6 @@
 const graphql = require('graphql');
 
-const { GraphQLObjectType, GraphQLString } = graphql;
+const { GraphQLObjectType, GraphQLString } = graphql
 
 const TaskType = new GraphQLObjectType({
   name: 'Tasks',
@@ -14,4 +14,4 @@ const TaskType = new GraphQLObjectType({
   })
 });
 
-module.exports = TaskType;
+export default TaskType

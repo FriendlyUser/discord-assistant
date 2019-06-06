@@ -1,5 +1,5 @@
-const { GraphQLObjectType, GraphQLString } = require('graphql');
-const taskTypeGraphQLType = require('./../types/taskType');
+import { GraphQLObjectType, GraphQLString } from 'graphql'
+import taskTypeGraphQLType from './../types/taskType'
 const Tasks = require('./../../models/tasks');
 
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
         category: {type: GraphQLString},
         priority: {type: GraphQLString}
     },
-    resolve(parent, args) {
+    resolve(parent: any, args: { name: any; start_date: any; end_date: any; category: any; priority: any; }) {
         const newTasks = new Tasks({
             name: args.name,
             start_date: args.start_date,

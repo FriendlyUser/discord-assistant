@@ -1,5 +1,5 @@
-const { GraphQLObjectType, GraphQLString, GraphQLList } =  require('graphql');
-const tasksGraphQLType =  require('../types/taskType');
+import { GraphQLObjectType, GraphQLString, GraphQLList } from 'graphql'
+import tasksGraphQLType from '../types/taskType'
 const Tasks = require('../../models/tasks');
 
 module.exports = {

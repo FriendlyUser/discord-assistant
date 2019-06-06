@@ -1,13 +1,13 @@
 // https://github.com/Enterprise-JS/koa-typescript-starter
 // convert to typescript later
-const Koa = require('koa');
+import * as Koa from "koa";
+// import * as Router from "koa-router";
+import * as mount from 'koa-mount'
+import schema from './graphql/schema'
+import initDB from './database'
+import * as logger from 'koa-logger'
 
-const mount = require('koa-mount');
 const graphqlHTTP = require('koa-graphql');
-const schema = require('./graphql/schema');
-
-const initDB = require('./database');
-
 // standard http for nodejs
 // const https = require("https");
 const { request } = require('graphql-request')
@@ -27,13 +27,13 @@ app.use(mount('/graphql', graphqlHTTP({
   schema: schema,
   graphiql: true
 })))
-
+// MiddleWare
 app.on('error', err => {
-  log.error('server error', err)
+  console.log('server error', err)
 });
 
 
-function formatDate(date) {
+function formatDate(date: string | number | Date) {
   var d = new Date(date),
       month = '' + (d.getMonth() + 1),
       day = '' + d.getDate(),
@@ -53,7 +53,10 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 
-client.on('message', msg => {
+client.on('message', 
+      (msg: { content: 
+        string; reply: { (arg0: string): void; (arg0: string): void; (arg0: string): void; (arg0: string): void; }; 
+        send: (arg0: string) => void; channel: { send: { (arg0: string): void; (arg0: string): void; }; }; }) => {
   if (msg.content === 'ping') {
     msg.reply('pong')
   }
@@ -83,12 +86,12 @@ client.on('message', msg => {
     }`
     console.log(query)
     request('http://localhost:9000/graphql', query)
-    .then(data => {
+    .then((data: any) => {
       // console.log(data)
       // need helper function to convert json to parsable discord statements.
       msg.reply(JSON.stringify(data))
     })
-    .catch(err => {
+    .catch((err: any) => {
       msg.reply(JSON.stringify(err))
     })
     
@@ -108,7 +111,7 @@ client.on('message', msg => {
       }
     }`
     request('http://localhost:9000/graphql', query)
-    .then(data => {
+    .then((data: { [x: string]: any; }) => {
 
       // get first key
       var keys = Object.keys(data);
@@ -120,8 +123,8 @@ client.on('message', msg => {
       // console.log(data)
       // msg.channel.send(JSON.stringify(data))
       // get each object of arrays
-      let send_arr = []
-      data_cool.forEach(function (todo, index) {
+      let send_arr: any[] | string[] = []
+      data_cool.forEach(function (todo: { [x: string]: any; }, index: any) {
         console.log(todo, index);
         // msg.channel.send(item)
         let item_keys = Object.keys(todo)
@@ -144,7 +147,7 @@ client.on('message', msg => {
 
       // iterate across keys
     })
-    .catch(err => {
+    .catch((err: any) => {
       msg.reply(JSON.stringify(err))
     })
     
