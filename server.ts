@@ -4,7 +4,7 @@ import * as Koa from "koa";
 // import * as Router from "koa-router";
 import * as mount from 'koa-mount'
 import schema from './graphql/schema'
-import initDB from './database'
+import {initDB} from './database'
 import * as logger from 'koa-logger'
 
 const graphqlHTTP = require('koa-graphql');
@@ -21,7 +21,7 @@ initDB();
 // koa app content
 const app = new Koa();
 
-app.listen(9000);
+var server = app.listen(9000);
 
 app.use(mount('/graphql', graphqlHTTP({
   schema: schema,
@@ -160,4 +160,4 @@ client.login(process.env.DISCORD_TOKEN)
 
 }
 
-export default app
+export default server

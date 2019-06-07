@@ -2,13 +2,14 @@ const chai = require('chai');
 const expect = chai.expect;
 const url = `http://localhost:9000/`;
 const request = require('supertest')(url);
-
-const server = require('../server')
+import {closeDB} from '../database'
+import server from '../server'
 // global array of list of things to clear at the end
 let list_of_ids_to_clear: any[] = []
 describe('GraphQL', () => {
-    afterEach(() => {
+    after((done) => {
         server.close()
+        done();
     })
     it('Creates two tasks', done => {
         request.post('graphql')
@@ -73,3 +74,10 @@ describe('GraphQL', () => {
         })
     })
 });
+
+describe('kill server', () => {
+    it('killing server', () => {
+        server.close()
+        closeDB()
+    })
+})

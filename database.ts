@@ -10,4 +10,11 @@ const initDB = () => {
 
 }
 
-export default initDB;
+const closeDB = () => {
+  mongoose.connection.close()
+}
+
+export { 
+  initDB,
+  closeDB
+}
