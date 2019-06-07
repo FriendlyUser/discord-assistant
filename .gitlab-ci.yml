@@ -3,6 +3,7 @@ image: node:10
 stages:
   - test
   - deploy
+  - build
 
 test:
   stage: test
@@ -13,7 +14,6 @@ test:
     MONGO_URI: 'mongodb://mongodb:27017/koa-mongo-discord'
   before_script:
     - npm install
-    - npm install pm2 -g 
     # - chmod +x setup_env.sh && ./setup_env.sh
     - echo $MONGO_URI >> .env
     - echo $MONGO_URI
@@ -22,3 +22,13 @@ test:
     - npm run test
   coverage:
     '/Statements.*?(\d+(?:\.\d+)?)%/'
+
+build: 
+  before_script:
+    - npm install
+    # - chmod +x setup_env.sh && ./setup_env.sh
+    - echo $MONGO_URI >> .env
+    - echo $MONGO_URI
+# https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
+  script:
+    - npm run build

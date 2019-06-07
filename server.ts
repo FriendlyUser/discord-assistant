@@ -45,9 +45,9 @@ function formatDate(date: string | number | Date) {
   return [year, month, day].join('-');
 }
 
+// maybe export discord as well in a different modules
 if(process.env.NODE_ENV != 'testing')
 {
-
 // discord content for todo list
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -159,3 +159,5 @@ client.on('message',
 client.login(process.env.DISCORD_TOKEN)
 
 }
+
+export default app

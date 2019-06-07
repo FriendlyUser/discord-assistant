@@ -1,17 +1,19 @@
 const chai = require('chai');
-
 const expect = chai.expect;
 const url = `http://localhost:9000/`;
 const request = require('supertest')(url);
 
+const server = require('../server')
+
+// import 'mocha'
 // global array of list of things to clear at the end
-let list_of_ids_to_clear = []
+let list_of_ids_to_clear: any[] = []
 describe('GraphQL', () => {
-    it('Creates two tasks', (done) => {
+    it('Creates two tasks', done => {
         request.post('graphql')
         .send({query: 'mutation { addTask(name: "finish koa testing", category: "discord", priority: "high") { id name start_date end_date category priority } }'})
         .expect(200)
-        .end((err, res) => {
+        .end((err: any, res: { body: { data: { addTask: { id: any; }; }; }; }) => {
             // res will contain array of all users
             if (err) return done(err);
             // assume there are a 100 users in the database
@@ -27,12 +29,12 @@ describe('GraphQL', () => {
         })  
     })
 
-    it('Updating task of interest', (done) => {
+    it('Updating task of interest', (done: { (arg0: any): void; (): void; }) => {
         console.log(list_of_ids_to_clear)
         request.post('graphql')
         .send({ query: ` mutation { updateTask( id: "${list_of_ids_to_clear[0]}", name: "TEST ARTIFACT", start_date: "2019-06-03" , end_date: "2019-06-04", category: "graphql", priority: "high") { name, start_date end_date, category, priority } }`})
         .expect(200)
-        .end((err, res) => {
+        .end((err: any, res: { body: any; }) => {
             // res will contain array of all users
             if (err) return done(err);
             // assume there are a 100 users in the database
@@ -40,11 +42,11 @@ describe('GraphQL', () => {
             done();
         })  
     })
-    it('Removing task of interest', (done) => {
+    it('Removing task of interest', (done: { (arg0: any): void; (): void; }) => {
         request.post('graphql')
         .send({ query: ` mutation { removeTask(id: "${list_of_ids_to_clear[0]}") { id name start_date end_date category priority } }`})
         .expect(200)
-        .end((err, res) => {
+        .end((err: any, res: { body: any; }) => {
             // res will contain array of all users
             if (err) return done(err);
             // assume there are a 100 users in the database
@@ -52,12 +54,12 @@ describe('GraphQL', () => {
             done();
         })  
     })
-    it('Getting all tasks', (done) => {
+    it('Getting all tasks', (done: { (arg0: any): void; (): void; }) => {
         // console.log(done)
         request.post('graphql')
         .send({ query: '{ queryAllTasks { name, id, start_date, end_date, category, priority } }'})
         .expect(200)
-        .end((err,res) => {
+        .end((err: any,res: { body: { data: { queryAllTasks: any; }; }; }) => {
             // res will contain array with one user
             if (err) return done(err);
             let todo_arr = res.body.data.queryAllTasks

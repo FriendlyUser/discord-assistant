@@ -38,3 +38,8 @@ Consider using https://timonweb.com/tutorials/how-to-enable-ecmascript-6-imports
 as https://medium.com/@ramandeep.singh.1983/step-by-step-setting-up-a-node-js-server-in-typescript-c601c066bc57
 
 essentially pick one.
+
+
+.. code-block:: shell
+
+    typedoc --excludeExternals --externalPattern "**/node_modules/**" --ignoreCompilerErrors --name "$PROJ_NAME" --mode "file" --out "../document/typedoc/" "$SRC_DIR"
