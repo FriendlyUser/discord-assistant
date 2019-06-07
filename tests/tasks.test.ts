@@ -7,6 +7,9 @@ const server = require('../server')
 // global array of list of things to clear at the end
 let list_of_ids_to_clear: any[] = []
 describe('GraphQL', () => {
+    afterEach(() => {
+        server.close()
+    })
     it('Creates two tasks', done => {
         request.post('graphql')
         .send({query: 'mutation { addTask(name: "finish koa testing", category: "discord", priority: "high") { id name start_date end_date category priority } }'})
@@ -66,7 +69,6 @@ describe('GraphQL', () => {
             // res.body.text.should.have.property('name')
             // res.body.text.should.have.property('start_date')
             // res.body.text.should.have.property('end_date')
-            server.close()
             done();
         })
     })
