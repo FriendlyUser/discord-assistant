@@ -4,8 +4,6 @@ const url = `http://localhost:9000/`;
 const request = require('supertest')(url);
 
 const server = require('../server')
-
-// import 'mocha'
 // global array of list of things to clear at the end
 let list_of_ids_to_clear: any[] = []
 describe('GraphQL', () => {
@@ -68,6 +66,7 @@ describe('GraphQL', () => {
             // res.body.text.should.have.property('name')
             // res.body.text.should.have.property('start_date')
             // res.body.text.should.have.property('end_date')
+            server.close()
             done();
         })
     })
