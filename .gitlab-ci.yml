@@ -44,4 +44,5 @@ pages:
   script:
     - typedoc --excludeExternals --externalPattern "**/node_modules/**" --ignoreCompilerErrors --name "discord-bot" --mode "file" --out "public/" .
   artifacts:
-    - public
+    paths:
+      - public
