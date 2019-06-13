@@ -4,6 +4,7 @@ stages:
   - test
   - deploy
   - build
+  - deploy
 
 test:
   stage: test
@@ -24,6 +25,7 @@ test:
     '/Statements.*?(\d+(?:\.\d+)?)%/'
 
 build: 
+  stage: build
   before_script:
     - npm install
     # - chmod +x setup_env.sh && ./setup_env.sh
@@ -32,3 +34,14 @@ build:
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
   script:
     - npm run build
+  # Add artifacts here
+
+pages:
+  stage: deploy
+  before_script:
+    - npm install
+    - npm install -g typedoc
+  script:
+    - typedoc --excludeExternals --externalPattern "**/node_modules/**" --ignoreCompilerErrors --name "discord-bot" --mode "file" --out "public/" .
+  artifacts:
+    - public
