@@ -34,16 +34,20 @@ build:
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
   script:
     - npm run build
+    - npm run coverage
   # Add artifacts here
-
+# create coverage report
 pages:
   image: node:10
   stage: deploy
+  dependencies:
+    - build
   before_script:
     - npm install
     - npm install -g typedoc
   script:
     - typedoc --excludeExternals --externalPattern "**/node_modules/**" --ignoreCompilerErrors --name "discord-bot" --mode "file" --out "public/" .
+    - mv coverage public || true
   artifacts:
     paths:
       - public

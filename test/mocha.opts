@@ -1,4 +1,5 @@
---require ts-node/register
 --require source-map-support/register
 --recursive
---noImplicitAny
+--full-trace
+--bail
+test/*.test.ts

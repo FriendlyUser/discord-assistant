@@ -5,7 +5,7 @@ const request = require('supertest')(url);
 import {closeDB} from '../database'
 import server from '../server'
 // global array of list of things to clear at the end
-let list_of_ids_to_clear = []
+let list_of_ids_to_clear: any[] = []
 describe('GraphQL', () => {
     after((done) => {
         server.close()
