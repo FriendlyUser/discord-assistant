@@ -40,7 +40,9 @@ build-js:
   artifacts:
     paths:
       - coverage
-    expire_in: 1 week
+      - dist
+      - node_modules
+    expire_in: 1 day
 
   # Add artifacts here
 # create coverage report
@@ -61,6 +63,8 @@ pages:
       - public
 
 staging:
+  dependencies:
+    - build-js
   stage: deploy
   script:
     - apt-get update -qy
@@ -69,6 +73,11 @@ staging:
     # Unignore .gitignore file
     - chmod +x setup_env.sh && ./setup_env.sh production
     - sed -i 's/.env/.dev/g' .gitignore
+    - mv .env dist || true
+    - mv ProcFile dist || true
+    - mv package.json || true
+    - mv node_modules dist || true
+    - cd dist
     - dpl --skip_cleanup --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
   only:
     - master
