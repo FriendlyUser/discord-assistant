@@ -2,7 +2,7 @@ const chai = require('chai');
 const expect = chai.expect;
 const url = `http://localhost:9000/`;
 const request = require('supertest')(url);
-import {closeDB} from '../database'
+import {closeDB} from '../services/database'
 import server from '../server'
 // global array of list of things to clear at the end
 let list_of_ids_to_clear: any[] = []
