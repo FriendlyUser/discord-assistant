@@ -35,13 +35,16 @@ coverage-js:
   script:
     - npm run build
     - npm run coverage
+  artifacts:
+    - coverage
+    
   # Add artifacts here
 # create coverage report
 pages:
   image: node:10
   stage: deploy
   dependencies:
-    - coverage-js
+    - build
   before_script:
     - npm install
     - npm install -g typedoc
