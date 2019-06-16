@@ -36,8 +36,9 @@ coverage-js:
     - npm run build
     - npm run coverage
   artifacts:
-    - coverage
-    
+    paths:
+      - coverage
+
   # Add artifacts here
 # create coverage report
 pages:
