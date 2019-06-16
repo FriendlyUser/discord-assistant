@@ -54,7 +54,7 @@ pages:
     - npm install
     - npm install -g typedoc
   script:
-    - typedoc --excludeExternals --externalPattern "**/node_modules/**" --ignoreCompilerErrors --name "discord-bot" --mode "file" --out "public/" .
+    - npm run docs
     - mv coverage public || true
   artifacts:
     paths:
@@ -69,7 +69,7 @@ staging:
     # Unignore .gitignore file
     - chmod +x setup_env.sh && ./setup_env.sh production
     - sed -i 's/.env/.dev/g' .gitignore
-    - dpl --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
+    - dpl --skip_cleanup --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
   only:
     - master
     # change to tags once it is good
