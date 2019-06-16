@@ -75,7 +75,7 @@ staging:
     - sed -i 's/.env/.dev/g' .gitignore
     - mv .env dist || true
     - mv ProcFile dist || true
-    - mv package.json || true
+    - mv package.json dist || true
     - mv node_modules dist || true
     - cd dist
     - dpl --skip_cleanup --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
