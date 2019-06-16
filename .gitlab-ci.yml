@@ -23,7 +23,7 @@ test:
   coverage:
     '/Statements.*?(\d+(?:\.\d+)?)%/'
 
-build: 
+coverage-js: 
   image: node:10
   stage: build
   before_script:
@@ -41,7 +41,7 @@ pages:
   image: node:10
   stage: deploy
   dependencies:
-    - build
+    - coverage-js
   before_script:
     - npm install
     - npm install -g typedoc
