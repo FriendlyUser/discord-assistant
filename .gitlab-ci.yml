@@ -24,7 +24,7 @@ test:
   artifacts:
     paths:
       - coverage
-    expires_in: 1 week
+    expire_in: 1 week
 
 build-js: 
   image: node:10
@@ -40,7 +40,7 @@ build-js:
   artifacts:
     paths:
       - coverage
-    expires_in: 1 week
+    expire_in: 1 week
 
   # Add artifacts here
 # create coverage report

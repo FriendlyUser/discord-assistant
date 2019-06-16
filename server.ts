@@ -13,9 +13,6 @@ const graphqlHTTP = require('koa-graphql');
 // const https = require("https");
 require('dotenv').config()
 
-const Discord = require('discord.js');
-const client = new Discord.Client();
-
 initDB();
 
 // koa app content
