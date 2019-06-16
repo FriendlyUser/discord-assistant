@@ -65,10 +65,6 @@ class DiscordBot {
             string; reply: { (arg0: string): void; (arg0: string): void; (arg0: string): void; (arg0: string): void; }; 
             send: (arg0: string) => void; channel: { send: { (arg0: string): void; (arg0: string): void; }; }; }) => {
         if (msg.author == client.user) return
-
-        if (msg.content === 'ping') {
-          msg.reply('pong')
-        }
         // hardcoded prefix for now
         // list commands. commands that might have commas
         let listcommands = ['addtask']
