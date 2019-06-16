@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-test": "ts-node ./server.ts",
-    "start": "cross-env NODE_ENV=development pm2 start ts-node -- -P tsconfig.json ./server.ts",
+    "start-prod": "ts-node ./server.ts",
+    "start-dev": "cross-env NODE_ENV=development ts-node ./server.ts",
     "test": "cross-env NODE_ENV=testing ts-mocha",
     "coverage": "nyc npm run test",
     "build": "tsc"
@@ -21,7 +21,8 @@
     "koa": "^2.7.0",
     "koa-graphql": "^0.8.0",
     "koa-mount": "^4.0.0",
-    "mongoose": "^5.5.12"
+    "mongoose": "^5.5.12",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/graphql": "^14.2.0",
@@ -31,6 +32,7 @@
     "@types/koa-router": "^7.0.40",
     "@types/mocha": "^5.2.7",
     "@types/mongoose": "^5.5.5",
+    "@types/winston": "^2.4.4",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
     "mocha": "^6.1.4",
