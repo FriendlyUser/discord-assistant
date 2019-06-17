@@ -4,8 +4,8 @@ import * as Koa from "koa";
 import * as mount from 'koa-mount'
 import schema from './graphql/schema'
 import { initDB } from './services/database'
-
 import DiscordBot from './discord/discord'
+import { port } from './config'
 const graphqlHTTP = require('koa-graphql');
 // standard http for nodejs
 // const https = require("https");
@@ -16,12 +16,13 @@ initDB();
 // koa app content
 const app = new Koa();
 
-var server = app.listen(9000);
+let server = app.listen(port);
 
 app.use(mount('/graphql', graphqlHTTP({
   schema: schema,
   graphiql: true
 })))
+
 // MiddleWare
 app.on('error', err => {
   console.log('server error', err)

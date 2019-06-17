@@ -9,7 +9,7 @@ const client = new Discord.Client()
 const { request } = require('graphql-request')
 const fetch = require('node-fetch')
 import { logger } from './logger'
-
+import { port } from '../config'
 // consider adding moment to parse start dates and end dates
 function formatDate(date: string | number | Date) {
   var d = new Date(date),
@@ -150,7 +150,7 @@ class DiscordBot {
                     }
                 }`
                 // this.logging.info(query)
-                request('http://localhost:9000/graphql', query)
+                request(`http://localhost:${port}/graphql`, query)
                 .then((data: any) => {
                   // console.log(data)
                   // need helper function to convert json to parsable discord statements.
@@ -184,7 +184,7 @@ class DiscordBot {
               }
           }`
           // this.logging.info(query)
-          request('http://localhost:9000/graphql', query)
+          request(`http://localhost:${port}/graphql`, query)
           .then((data: any) => {
             // console.log(data)
             // need helper function to convert json to parsable discord statements.
@@ -217,7 +217,7 @@ class DiscordBot {
               priority
             }
           }`
-          request('http://localhost:9000/graphql', query)
+          request(`http://localhost:${port}/graphql`, query)
           .then((data: { [x: string]: any; }) => {
             this.logging.info("Sending Query to Server")
             this.logging.debug(query)
@@ -268,7 +268,7 @@ class DiscordBot {
             }
           }`
           // field create mapping
-          request('http://localhost:9000/graphql', query)
+          request(`http://localhost:${port}/graphql`, query)
           .then((query_all_tasks: { [x: string]: any; }) => {
             let todo_list = query_all_tasks.queryAllTasks
             todo_list.forEach( (todo: TodoObj) => {
@@ -315,7 +315,7 @@ class DiscordBot {
                 id
               }
             }`
-          request('http://localhost:9000/graphql', query)
+          request(`http://localhost:${port}/graphql`, query)
           .then((data: { [x: string]: any; }) => {
             msg.channel.send(JSON.stringify(data))
           })
