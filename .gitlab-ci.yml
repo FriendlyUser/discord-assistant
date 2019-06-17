@@ -78,7 +78,7 @@ staging:
     - mv package.json dist || true
     - mv node_modules dist || true
     - cd dist
-    - dpl --skip_cleanup --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
+    - dpl --skip_cleanup --local_dir dist --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
   only:
     - master
     # change to tags once it is good
