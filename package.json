@@ -6,7 +6,7 @@
   "scripts": {
     "start-prod": "ts-node ./server.ts",
     "start-dev": "cross-env NODE_ENV=development ts-node ./server.ts",
-    "start": "cross-env NODE_ENV=production node server.js",
+    "start": "ts-node server.js",
     "test": "cross-env NODE_ENV=testing ts-mocha",
     "coverage": "nyc npm run test",
     "build": "tsc",
