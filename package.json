@@ -8,7 +8,7 @@
     "start-dev": "cross-env NODE_ENV=development ts-node ./server.ts",
     "start": "mv .env dist && cd dist && node server.js",
     "test": "cross-env NODE_ENV=testing ts-mocha",
-    "coverage": "nyc npm run test",
+    "coverage": "nyc -r lcov npm run test",
     "build": "tsc",
     "docs": "typedoc --readme ReadMe.rst --excludeExternals --externalPattern **/node_modules/** --ignoreCompilerErrors --name discord-bot --mode file --out public/ ."
   },
