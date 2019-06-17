@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/FriendlyUser/discord-assistant.svg?branch=master)](https://travis-ci.com/FriendlyUser/discord-assistant) [![Coverage Status](https://coveralls.io/repos/github/FriendlyUser/discord-assistant-bot/badge.svg?branch=master)](https://coveralls.io/github/FriendlyUser/discord-assistant-bot?branch=master)
 ### Personal Assistant Discord Bot
 
 This discord bot is a fun experiment by me to learn new technologies while having a nice bot that can take my daily tasks and eventually do anything else I feel is necessary.
