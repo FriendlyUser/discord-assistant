@@ -63,8 +63,6 @@ pages:
       - public
 
 staging:
-  dependencies:
-    - build-js
   stage: deploy
   script:
     - apt-get update -qy
@@ -73,12 +71,8 @@ staging:
     # Unignore .gitignore file
     - chmod +x setup_env.sh && ./setup_env.sh production
     - sed -i 's/.env/.dev/g' .gitignore
-    - mv .env dist || true
-    - mv ProcFile dist || true
-    - mv package.json dist || true
-    - mv node_modules dist || true
-    - cd dist
-    - dpl --skip_cleanup --local_dir dist --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
+    - mv .env
+    - dpl --skip_cleanup --provider=heroku --app=dli-discord-assist --api-key=$HEROKU_API_KEY
   only:
     - master
     # change to tags once it is good
