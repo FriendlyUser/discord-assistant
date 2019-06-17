@@ -12,6 +12,7 @@ before_script:
   - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
   - echo "MONGO_URI=mongodb://localhost:27017/discord-assistant" >> .env
   - echo "DISCORD_TOKEN=not-working" >> .env
+  - echo "repo_token: $IN7Zk9z2XvSfKfhx9uKTM5aZ4O21SKPO7" > .coveralls.yml
 script: 
   - npm install -g istanbul typedoc
   - npm run coverage
