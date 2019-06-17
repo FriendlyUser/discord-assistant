@@ -9,6 +9,9 @@ services:
 
 before_script:
   - npm install
+  - mongo mydb_test --eval 'db.createUser({user:"travis",pwd:"test",roles:["readWrite"]});'
+  - echo "MONGO_URI=mongodb://localhost:27017/discord-assistant" >> .env
+  - echo "DISCORD_TOKEN=not-working" >> .env
 script: 
   - npm install -g istanbul
   - npm run coverage
