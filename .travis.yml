@@ -1,4 +1,4 @@
-sudo: false
+sudo: true
 
 language: node_js
 
@@ -7,7 +7,14 @@ node_js: stable
 services:
   - mongodb
 
-script: npm run coverage
+before_script:
+  - npm install
+script: 
+  - npm install -g istanbul
+  - npm run coverage
+  - istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - npm run docs
+  - npm run build
 
 after_success:
-  - npm run coveralls
+  - npm run coveralls || true
