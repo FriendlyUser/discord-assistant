@@ -1,1 +1,1 @@
-web: mv .env dist && cd dist && node server.js
+web: npm run start
