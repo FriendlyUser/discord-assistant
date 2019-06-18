@@ -31,14 +31,6 @@ app.on('error', err => {
   console.log('server error', err)
 })
 
-setInterval( function() { 
-  var hour = new Date().getHours();
-  //   // changing 13 < 23 to a 1 and 23 cause why not, i got plenty of heroku time I'm not using
-  if ((hour >= 13 && hour < 23)) {
-        https.get(`127.0.0.1`);
-        https.get(`127.0.0.1:9000`);
-  }
-} , 27*1000*60); 
 // TODO add logic to loop, add crypto news generator
 // CREATE ADDING MORE COMMENTS, plotting functionality for crypto news
 // add coursea, or edx course scrapping.
@@ -56,6 +48,15 @@ setInterval( function() {
 if(process.env.NODE_ENV != 'testing')
 {
   new DiscordBot()
+
+  setInterval( function() { 
+    var hour = new Date().getHours();
+    //   // changing 13 < 23 to a 1 and 23 cause why not, i got plenty of heroku time I'm not using
+    if ((hour >= 13 && hour < 23)) {
+          https.get(`127.0.0.1`);
+          https.get(`127.0.0.1:9000`);
+    }
+  } , 27*1000*60); 
 }
 
 export default server
