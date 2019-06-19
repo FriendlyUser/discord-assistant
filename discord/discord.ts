@@ -3,13 +3,19 @@
  * TODO Consider refactoring using the approach indicated by https://github.com/AnIdiotsGuide/guidebot/
  * and by https://anidiots.guide/first-bot/a-basic-command-handler
  */
-
+const fs = require('fs')
+const Enmap = require("enmap")
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const { request } = require('graphql-request')
 const fetch = require('node-fetch')
 import { logger } from './logger'
-import { port } from '../config'
+// import { port } from './config'
+
+import config  from "./config"
+client.config = config
+
+const { port, prefix } = config
 // consider adding moment to parse start dates and end dates
 function formatDate(date: string | number | Date) {
   var d = new Date(date),
@@ -44,6 +50,7 @@ interface TodoObj {
   priority: string;
   id: string;
 }
+// eventually get rid of this class and use the tutorial approach
 class DiscordBot {
   /**
    * @param logging kind of logger to use
@@ -51,9 +58,30 @@ class DiscordBot {
   logging: any;
     constructor () {
         // read config if added
-        this.login(process.env.DISCORD_TOKEN)
-        this._handle_messages()
+        // this._handle_messages()
         this.logging = logger
+        fs.readdir("./events/", (err: any, files: { forEach: (arg0: (file: string) => void) => void }) => {
+          if (err) return console.error(err)
+          files.forEach(file => {
+            const event = require(`./events/${file}`)
+            let event_name = file.split(".")[0];
+            client.on(event_name, event.bind(null, client))
+          })
+        })
+
+        client.commands = new Enmap();
+
+        fs.readdir("./commands/", (err: any, files: { forEach: (arg0: (file: any) => void) => void }) => {
+          if (err) return console.error(err);
+          files.forEach(file => {
+            if (!file.endsWith(".js")) return;
+            let props = require(`./commands/${file}`);
+            let commandName = file.split(".")[0];
+            console.log(`Attempting to load command ${commandName}`);
+            client.commands.set(commandName, props);
+          });
+        });
+        this.login(process.env.DISCORD_TOKEN)
     }
     chunk_string(str: string, length: number) {
       var _size = Math.ceil(str.length / length),
@@ -80,92 +108,12 @@ class DiscordBot {
       });
     }
     _handle_messages () {
-      // discord content for todo list
-      client.on('ready', () => {
-          this.logging.info(`Logged in as ${client.user.tag}!`);
-      });
       client.on('message', 
         async (msg: { 
           author: any, content: any,
           reply: { (arg0: string): void; (arg0: string): void; (arg0: string): void; (arg0: string): void; },
           send: (arg0: string) => void; channel: { send: { (embed: Object): any; }, awaitMessages: any},
         }) => {
-        let prefix = '!'
-        // If there is no prefix or the author of this message is a bot, stop processing. This includes this bot, itself.
-        if(!msg.content.startsWith(prefix) || msg.author.bot) return;
-        if (msg.author == client.user) return
-        // hardcoded prefix for now
-        // list commands. commands that might have commas
-        let listcommands = ['addtask']
-        let args: string[] = []
-        let command = ''
-
-        // check for commas, if so parse arguments for commas
-        if (msg.content.includes(',')) {
-          listcommands.forEach( (item, index) => {
-            if(msg.content.toLowerCase().includes(item)) {
-              args = msg.content
-                    .slice(prefix.length + listcommands[index].length)
-                    .split(',');
-              command = listcommands[index]
-            }
-          })
-        } else {
-          // split by spaces
-          args = msg.content.slice(prefix.length).split(' ');
-          command = args.shift().toLowerCase();
-        }
-        // console.log(command)
-        this.logging.error(args)
-        // const args = msg.content.slice(prefix.length).split(' ');
-        // option 2 would be to ask for multiple content
-        if(command === 'newtask')
-        {
-          msg.channel.send('Enter task seperated by: name, category and priority.')
-          .then(() => {
-            msg.channel.awaitMessages((response: { content: String; }) => response.content.length > 0, {
-              max: 1,
-              time: 30000,
-              errors: ['time'],
-            })
-            .then((collected: { first: () => { content: any; }; }) => {
-                // msg.channel.send(`The collected message was: ${collected.first().content}`);
-                let content = collected.first().content.slice(prefix.length).split(',');
-                if (content.length < 2) {
-                  msg.channel.send('Not enough arguments specified, try used a comma seperated list.')
-                  return
-                }
-                let start_date = new Date()
-                let end_date = start_date
-                end_date.setDate(end_date.getDate() + 7);
-                let query = `
-                  mutation {
-                    addTask(name: "${content[0]}", start_date: "${formatDate(start_date)}", end_date: "${formatDate(end_date)}", category: "${content[1]}", priority: "${content[2]}") {
-                        id
-                        name
-                        start_date
-                        end_date
-                        category
-                        priority
-                    }
-                }`
-                // this.logging.info(query)
-                request(`http://localhost:${port}/graphql`, query)
-                .then((data: any) => {
-                  // console.log(data)
-                  // need helper function to convert json to parsable discord statements.
-                  msg.reply(JSON.stringify(data))
-                  return
-                })
-                .catch((err: any) => {
-                  msg.reply(JSON.stringify(err))
-                })
-              })
-              .catch(() => {
-                msg.channel.send('There was no collected message that passed the filter within the time limit!');
-              });
-          });
-        }
         if(command === 'addtask') 
         {
           let start_date = new Date()
