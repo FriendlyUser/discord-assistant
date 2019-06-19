@@ -80,6 +80,7 @@ class DiscordBot {
             client.commands.set(commandName, props)
           });
         });
+        this._handle_messages()
         this.login(process.env.DISCORD_TOKEN)
     }
     chunk_string(str: string, length: number) {
@@ -163,7 +164,6 @@ class DiscordBot {
           .catch((err: any) => {
             msg.reply(JSON.stringify(err))
           })
-          
         }
         if(command === 'help') {
           msg.send(`Bot usage is as follows:
