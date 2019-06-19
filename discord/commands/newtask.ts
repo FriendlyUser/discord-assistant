@@ -5,7 +5,7 @@
 import { addTaskQuery } from '../util/queries'
 const { request } = require('graphql-request')
 exports.run = async (client: any, message: any) => { 
-    const { prefix } = client.config
+    const { prefix, port } = client.config
     message.channel.send('Enter task seperated by: name, category and priority.')
     .then(() => {
       message.channel.awaitMessages((response: { content: String; }) => response.content.length > 0, {
@@ -45,13 +45,14 @@ exports.run = async (client: any, message: any) => {
 exports.conf = {
   enabled: true,
   guildOnly: true,
-  aliases: ["setting", "settings", "conf"],
+  aliases: ["newtask", "newtasks"],
   permLevel: "Administrator"
 };
 
 exports.help = {
-  name: "set",
-  category: "System",
-  description: "View or change settings for your server.",
-  usage: "set <view/get/edit> <key> <value>"
+  name: "newtask",
+  category: "TodoList",
+  description: "Add new Task to Mongo Database, with prompted fields",
+  usage: `newtask`,
+  list_args: ["name", "category", "priority"],
 };

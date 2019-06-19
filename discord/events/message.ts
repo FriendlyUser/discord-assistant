@@ -2,7 +2,7 @@
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
 
-export default async (client: any, message: any) => {
+module.exports = async (client: any, message: any) => {
     const {prefix} = client.config
     // Ignore all bots
     if (message.author.bot) return;
@@ -29,8 +29,9 @@ export default async (client: any, message: any) => {
     }
 
     // Grab the command data from the client.commands Enmap
-    const cmd = client.commands.get(command)
-
+    const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command))
+    // using this const varName = thing OR otherthign; is a pretty efficient
+    // and clean way to grab one of 2 values!
     // If that command doesn't exist, silently exit and do nothing
     if (!cmd) return
     cmd.run(client, message, args)

@@ -1,18 +1,20 @@
 // https://github.com/Enterprise-JS/koa-typescript-starter
 // convert to typescript later
+
+require('dotenv').config()
+
 import * as Koa from "koa";
 import * as mount from 'koa-mount'
 import schema from './graphql/schema'
 import { initDB } from './services/database'
 import DiscordBot from './discord/discord'
-import { port } from './discord/config'
-
+import config from './discord/config'
+const { port } = config
 const https = require("https")
 
 const graphqlHTTP = require('koa-graphql');
 // standard http for nodejs
 // const https = require("https");
-require('dotenv').config()
 
 initDB();
 

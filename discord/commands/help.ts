@@ -6,27 +6,30 @@ a command, it is not shown to them. If a command name is given with the
 help command, its extended help is shown.
 */
 
+import { noWhiteSpace } from '../util/helper'
+
 exports.run = (client: any, message: any, args: any) => {
   // If no specific command is called, show all filtered commands.
   if (!args[0]) {
     // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
     const myCommands = client.commands
-
+    const {prefix} = client.config
     // Here we have to get the command names only, and we use that array to get the longest name.
     // This make the help commands "aligned" in the output.
     const commandNames = myCommands.keyArray();
     const longest = commandNames.reduce((long: number, str: { length: number; }) => Math.max(long, str.length), 0);
 
     let currentCategory = "";
-    let output = `= Command List =\n\n[Use ${message.settings.prefix}help <commandname> for details]\n`;
+    let output = `= Command List =\n\n[Use ${prefix}help <commandname> for details]\n`;
     const sorted = myCommands.array().sort((p: { help: { category: number; name: number; }; }, c: { help: { category: number; name: number; }; }) => p.help.category > c.help.category ? 1 :  p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
     sorted.forEach( (c: any) => {
-      const cat = c.help.category.toProperCase();
+      console.log(c)
+      const cat = c.help.category
       if (currentCategory !== cat) {
         output += `\u200b\n== ${cat} ==\n`;
         currentCategory = cat;
       }
-      output += `${message.settings.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
+      output += `${prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
     });
     message.channel.send(output, {code: "asciidoc", split: { char: "\u200b" }});
   } else {
@@ -34,7 +37,14 @@ exports.run = (client: any, message: any, args: any) => {
     let command = args[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
-      message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage:: ${command.help.usage}\naliases:: ${command.conf.aliases.join(", ")}\n= ${command.help.name} =`, {code:"asciidoc"});
+      const {name, description, usage, list_args=[]} = command.help
+      const {aliases} = command.conf
+      let help_msg = noWhiteSpace`= ${name} =
+      \n${description}
+      \nusage:: ${usage}
+      ${list_args !== [] ? `\npromptArgs:: ${list_args.join(", ")}` : ''}
+      \naliases:: ${aliases.join(", ")}\n= ${name} =`
+      message.channel.send(help_msg, {code:"asciidoc"});
     }
   }
 };

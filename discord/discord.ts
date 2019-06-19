@@ -38,10 +38,6 @@ function formatDate(date: string | number | Date) {
  * ```
  */
 
- /**
-  * @interface TodoObj has the property from the graphql interface
-  * @property name of the string
-  */
 interface TodoObj {
   start_date: string;
   end_date: string;
@@ -60,25 +56,28 @@ class DiscordBot {
         // read config if added
         // this._handle_messages()
         this.logging = logger
-        fs.readdir("./events/", (err: any, files: { forEach: (arg0: (file: string) => void) => void }) => {
+        fs.readdir("./discord/events/", (err: any, files: { forEach: (arg0: (file: string) => void) => void }) => {
           if (err) return console.error(err)
-          files.forEach(file => {
-            const event = require(`./events/${file}`)
+          files.forEach(async file => {
+            console.log(file)
+            const event = await require(`./events/${file}`)
+            console.log(event)
             let event_name = file.split(".")[0];
             client.on(event_name, event.bind(null, client))
           })
         })
 
-        client.commands = new Enmap();
+        client.commands = new Enmap()
+        client.aliases = new Enmap()
 
-        fs.readdir("./commands/", (err: any, files: { forEach: (arg0: (file: any) => void) => void }) => {
-          if (err) return console.error(err);
+        fs.readdir("./discord/commands/", (err: any, files: { forEach: (arg0: (file: any) => void) => void }) => {
+          if (err) return console.error(err)
           files.forEach(file => {
-            if (!file.endsWith(".js")) return;
-            let props = require(`./commands/${file}`);
-            let commandName = file.split(".")[0];
-            console.log(`Attempting to load command ${commandName}`);
-            client.commands.set(commandName, props);
+            if (!file.endsWith(".ts")) return
+            let props = require(`./commands/${file}`)
+            let commandName = file.split(".")[0]
+            console.log(`Attempting to load command ${commandName}`)
+            client.commands.set(commandName, props)
           });
         });
         this.login(process.env.DISCORD_TOKEN)
@@ -114,6 +113,28 @@ class DiscordBot {
           reply: { (arg0: string): void; (arg0: string): void; (arg0: string): void; (arg0: string): void; },
           send: (arg0: string) => void; channel: { send: { (embed: Object): any; }, awaitMessages: any},
         }) => {
+          if (msg.author.bot) return;
+    // Ignore messages not starting with the prefix (in config.json)
+    if (msg.content.indexOf(prefix) !== 0) return;
+    let listcommands = ['addtask']
+    let args: string[] = []
+    let command = ''
+    // check for commas, if so parse arguments for commas
+    if (msg.content.includes(',')) {
+        // find the correct list command
+        listcommands.forEach( (item, index) => {
+          if(msg.content.toLowerCase().includes(item)) {
+            args = msg.content
+                  .slice(prefix.length + listcommands[index].length)
+                  .split(',');
+            command = listcommands[index]
+          }
+        })
+      } else {
+        // split by spaces
+        args = msg.content.slice(prefix.length).split(' ')
+        command = args.shift().toLowerCase()
+    }
         if(command === 'addtask') 
         {
           let start_date = new Date()
