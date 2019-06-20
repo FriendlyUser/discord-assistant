@@ -3,7 +3,7 @@
  * Create a new task by prompting user for name, category and priority
  */
 import { addTaskQuery } from '../util/queries'
-const { request } = require('graphql-request')\
+const { request } = require('graphql-request')
 import { ConfObj, HelpObj } from '../types/interfaces'
 export const run = async (client: any, message: any) => { 
     const { prefix, port } = client.config
@@ -43,7 +43,7 @@ export const run = async (client: any, message: any) => {
     })
 }
 
-export const conf: ConstObj = {
+export const conf: ConfObj = {
   enabled: true,
   guildOnly: true,
   aliases: ["newtask", "newtasks"],

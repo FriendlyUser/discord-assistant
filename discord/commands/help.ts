@@ -23,7 +23,6 @@ export const run = async (client: any, message: any, args: any) => {
     let output = `= Command List =\n\n[Use ${prefix}help <commandname> for details]\n`;
     const sorted = myCommands.array().sort((p: { help: { category: number; name: number; }; }, c: { help: { category: number; name: number; }; }) => p.help.category > c.help.category ? 1 :  p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
     sorted.forEach( (c: any) => {
-      console.log(c)
       const cat = c.help.category
       if (currentCategory !== cat) {
         output += `\u200b\n== ${cat} ==\n`;
@@ -37,12 +36,11 @@ export const run = async (client: any, message: any, args: any) => {
     let command = args[0];
     if (client.commands.has(command)) {
       command = client.commands.get(command);
-      const {name, description, usage, list_args=[]} = command.help
+      const {name, description, usage, list_args} = command.help
       const {aliases} = command.conf
       let help_msg = noWhiteSpace`= ${name} =
       \n${description}
-      \nusage:: ${usage}
-      ${list_args !== [] ? `\npromptArgs:: ${list_args.join(", ")}` : ''}
+      \nusage:: ${usage} ${list_args !== undefined ? `\npromptArgs:: ${list_args.join(", ")}` : ''}
       \naliases:: ${aliases.join(", ")}\n= ${name} =`
       message.channel.send(help_msg, {code:"asciidoc"});
     }

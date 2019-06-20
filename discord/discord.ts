@@ -59,9 +59,9 @@ class DiscordBot {
         fs.readdir("./discord/events/", (err: any, files: { forEach: (arg0: (file: string) => void) => void }) => {
           if (err) return console.error(err)
           files.forEach(async file => {
-            console.log(file)
+            // console.log(file)
             const event = await require(`./events/${file}`)
-            console.log(event)
+            // console.log(event)
             let event_name = file.split(".")[0];
             client.on(event_name, event.bind(null, client))
           })
@@ -81,9 +81,9 @@ class DiscordBot {
           });
         });
         // this._handle_messages()
-        this.login(process.env.DISCORD_TOKEN)
+        DiscordBot.login(process.env.DISCORD_TOKEN)
     }
-    chunk_string(str: string, length: number) {
+    static chunk_string(str: string, length: number) {
       var _size = Math.ceil(str.length / length),
       _ret  = new Array(_size),
       _offset
@@ -95,11 +95,11 @@ class DiscordBot {
 
       return _ret;
     }
-    login(token: string) {
+    static login(token: string) {
         // if (this.bot) return log.general.error('Cannot login when already logged in')
         client.login(token)
     }
-    async get_fake_crypto_news() {
+    static async get_fake_crypto_news() {
       // https://us-central1-openvpn-238104.cloudfunctions.net/function-2
       return fetch('https://us-central1-openvpn-238104.cloudfunctions.net/function-2')
       .then((res: { text: () => void; }) => res.text())
@@ -136,144 +136,6 @@ class DiscordBot {
         args = msg.content.slice(prefix.length).split(' ')
         command = args.shift().toLowerCase()
     }
-        if(command === 'addtask') 
-        {
-          let start_date = new Date()
-          let end_date = start_date 
-          end_date.setDate(end_date.getDate() + 7)
-          if (args.length < 2) args[2] = 'normal'
-          let query = `
-            mutation {
-              addTask(name: "${args[0]}", start_date: "${formatDate(start_date)}", end_date: "${formatDate(end_date)}", category: "${args[1]}", priority: "${args[2]}") {
-                  id
-                  name
-                  start_date
-                  end_date
-                  category
-                  priority
-              }
-          }`
-          // this.logging.info(query)
-          request(`http://localhost:${port}/graphql`, query)
-          .then((data: any) => {
-            // console.log(data)
-            // need helper function to convert json to parsable discord statements.
-            msg.reply(JSON.stringify(data))
-            return
-          })
-          .catch((err: any) => {
-            msg.reply(JSON.stringify(err))
-          })
-        }
-        if(command === 'help') {
-          msg.send(`Bot usage is as follows:
-            * ${prefix}addtask add new task to mongodb
-            * ${prefix}removealltasks deletes all tasks
-            * ${prefix}updatetask update an existing task
-            * ${prefix}fakenews generate a title for Ethereum Blockchain
-            * ${prefix}alltasks show all tasks as fancy discord embeds 
-          `)
-        }
-        // text based version for tasks
-        if(command === 'tasks') {
-          let query = `{
-            queryAllTasks {
-              name,
-              id,
-              start_date,
-              end_date,
-              category,
-              priority
-            }
-          }`
-          request(`http://localhost:${port}/graphql`, query)
-          .then((data: { [x: string]: any; }) => {
-            this.logging.info("Sending Query to Server")
-            this.logging.debug(query)
-            // get first key
-            var keys = Object.keys(data);
-            // access first object
-            let todo_list = data[keys[0]]
-            msg.channel.send("Getting Todo list data")
-            let full_arr: any[] | string[] = []
-            if (todo_list === []) {
-              msg.channel.send("List is Empty")
-            } 
-            else {
-              if(todo_list !== []) {
-                todo_list.forEach(function (todo: { [x: string]: any; }, index: any) {
-                  let item_keys = Object.keys(todo)
-                  item_keys.forEach(function (data_item, index) {
-                    // msg.channel.send(" --- " + data_item + todo[data_item])
-                    if (todo[data_item]) full_arr.push(`:crossed_swords:    **${data_item}**: ${todo[data_item]}`)// msg.channel.send(`:crossed_swords:    **${data_item}**: ${todo[data_item]}`)
-                    // convert timestamps to 
-                  })
-                  full_arr.push(`--------------------------------------`)
-                })
-                let big_string = full_arr.join('\n')
-                let send_arr: any | string[] = this.chunk_string(big_string, 1990)
-                // TODO come up with better approach aka for loop or equivalent.
-                send_arr.forEach( (small_string: string) => {
-                  msg.channel.send(small_string)
-                })
-              }
-            }
-          })
-          .catch((err: any) => {
-            this.logging.error(err)
-          })
-        }
-        // embed version of tasks 
-        if (command === 'alltasks')
-        {
-          let query = `{
-            queryAllTasks {
-              name,
-              id,
-              start_date,
-              end_date,
-              category,
-              priority
-            }
-          }`
-          // field create mapping
-          request(`http://localhost:${port}/graphql`, query)
-          .then((query_all_tasks: { [x: string]: any; }) => {
-            let todo_list = query_all_tasks.queryAllTasks
-            todo_list.forEach( (todo: TodoObj) => {
-              msg.channel.send({
-                embed: {
-                  color: 3447003,
-                  author: {
-                    name: client.user.username,
-                    icon_url: client.user.avatarURL
-                  },
-                  title: todo.name,
-                  url: "http://google.com",
-                  description: `Start Date: ${todo.start_date} \t \t \t End Date: ${todo.end_date}`,
-                  fields: [{
-                      name: "Category",
-                      value: `${todo.category}`
-                    },
-                    {
-                      name: "Priority",
-                      value: `${todo.priority}`
-                    },
-                    {
-                      name: "Id",
-                      value: `${todo.id}`
-                    }
-                  ],
-                  timestamp: new Date(),
-                  footer: {
-                    icon_url: client.user.avatarURL,
-                    text: "© Example"
-                  }
-                }
-              })
-            }) 
-          })
-        }
         // try getting data from server
 
         if(command === 'removealltasks') 
@@ -290,7 +152,7 @@ class DiscordBot {
           })
         }
         if(command === 'fakenews') {
-          let message = await this.get_fake_crypto_news()
+          let message = await Discord.get_fake_crypto_news()
           msg.channel.send(message)
         }
       })

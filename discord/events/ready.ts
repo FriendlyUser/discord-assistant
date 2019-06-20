@@ -1,6 +1,6 @@
 import { logger } from '../logger'
 
-module.exports = (client: any) => {
+module.exports = async (client: any) => {
     logger.info(`Logged in as ${client.user.tag}!`);
 
     // client.user.setActivity(`${client.settings.get("default").prefix}help`, {type: "PLAYING"});
