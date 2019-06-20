@@ -1,8 +1,8 @@
 
 import { queryAllTasks } from '../util/queries'
-import { TodoObj } from '../types/interfaces'
+import { TodoObj, ConfObj, HelpObj } from '../types/interfaces'
 const { request } = require('graphql-request')
-exports.run = async (client: any, message: any) => { 
+export const run = async (client: any, message: any) => { 
     const { port } = client.config
     const query = queryAllTasks()
     request(`http://localhost:${port}/graphql`, query)
@@ -43,15 +43,15 @@ exports.run = async (client: any, message: any) => {
     })
 }
 
-exports.conf = {
+export const conf: ConfObj = {
   enabled: true,
   aliases: ["alltasks", "alltask"],
   permLevel: "Administrator"
 };
 
-exports.help = {
+export const help: HelpObj = {
   name: "alltasks",
   category: "TodoList",
-  description: "Disable All Tasks Using Discord Embeds",
+  description: "Display All Tasks Using Discord Embeds",
   usage: "alltasks",
 };

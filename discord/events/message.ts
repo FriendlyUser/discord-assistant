@@ -5,12 +5,12 @@
 module.exports = async (client: any, message: any) => {
     const {prefix} = client.config
     // Ignore all bots
-    if (message.author.bot) return;
+    if(!message.content.startsWith(prefix) || message.author.bot) return;
+    if (message.author == client.user) return
     // Ignore messages not starting with the prefix (in config.json)
-    if (message.content.indexOf(prefix) !== 0) return;
     let listcommands = ['addtask']
     let args: string[] = []
-    let command = ''
+    let command: string = ''
     // check for commas, if so parse arguments for commas
     if (message.content.includes(',')) {
         // find the correct list command

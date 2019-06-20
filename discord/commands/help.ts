@@ -7,8 +7,8 @@ help command, its extended help is shown.
 */
 
 import { noWhiteSpace } from '../util/helper'
-
-exports.run = (client: any, message: any, args: any) => {
+import { ConfObj, HelpObj } from '../types/interfaces'
+export const run = async (client: any, message: any, args: any) => {
   // If no specific command is called, show all filtered commands.
   if (!args[0]) {
     // Filter all commands by which are available for the user's level, using the <Collection>.filter() method.
@@ -49,14 +49,14 @@ exports.run = (client: any, message: any, args: any) => {
   }
 };
 
-exports.conf = {
+export const conf: ConfObj = {
   enabled: true,
   guildOnly: false,
   aliases: ["h", "halp"],
   permLevel: "User"
 };
 
-exports.help = {
+export const help: HelpObj = {
   name: "help",
   category: "System",
   description: "Displays all the available commands for your permission level.",

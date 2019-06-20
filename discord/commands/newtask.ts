@@ -3,8 +3,9 @@
  * Create a new task by prompting user for name, category and priority
  */
 import { addTaskQuery } from '../util/queries'
-const { request } = require('graphql-request')
-exports.run = async (client: any, message: any) => { 
+const { request } = require('graphql-request')\
+import { ConfObj, HelpObj } from '../types/interfaces'
+export const run = async (client: any, message: any) => { 
     const { prefix, port } = client.config
     message.channel.send('Enter task seperated by: name, category and priority.')
     .then(() => {
@@ -42,14 +43,14 @@ exports.run = async (client: any, message: any) => {
     })
 }
 
-exports.conf = {
+export const conf: ConstObj = {
   enabled: true,
   guildOnly: true,
   aliases: ["newtask", "newtasks"],
   permLevel: "Administrator"
 };
 
-exports.help = {
+export const help: HelpObj = {
   name: "newtask",
   category: "TodoList",
   description: "Add new Task to Mongo Database, with prompted fields",
