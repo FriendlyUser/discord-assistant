@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/FriendlyUser/discord-assistant.svg?branch=master)](https://travis-ci.com/FriendlyUser/discord-assistant) [![Coverage Status](https://coveralls.io/repos/github/FriendlyUser/discord-assistant-bot/badge.svg?branch=master)](https://coveralls.io/github/FriendlyUser/discord-assistant-bot?branch=master)
+[![Build Status](https://travis-ci.com/FriendlyUser/discord-assistant-bot.svg?branch=master)](https://travis-ci.com/FriendlyUser/discord-assistant-bot) [![Coverage Status](https://coveralls.io/repos/github/FriendlyUser/discord-assistant-bot/badge.svg?branch=master)](https://coveralls.io/github/FriendlyUser/discord-assistant-bot?branch=master)
 
 ### Personal Assistant Discord Bot
 
