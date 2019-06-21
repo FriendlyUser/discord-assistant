@@ -18,6 +18,7 @@ script:
   - npm install coveralls
   - npm install mocha-lcov-reporter
   - NODE_ENV=testing istanbul cover ./node_modules/ts-mocha/bin/ts-mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+  - npm install typedoc-color-theme
   - npm run docs
   - npm run build
 

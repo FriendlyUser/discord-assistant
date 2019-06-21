@@ -41,7 +41,7 @@ build-js:
     paths:
       - coverage
       - dist
-      - node_modules
+      # - node_modules
     expire_in: 1 day
 
   # Add artifacts here
@@ -55,6 +55,7 @@ pages:
   before_script:
     - npm install
     - npm install -g typedoc
+    - npm install typedoc-color-theme
   script:
     - npm run docs
     - mv coverage public || true
