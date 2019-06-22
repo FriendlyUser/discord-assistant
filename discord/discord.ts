@@ -16,36 +16,7 @@ import config  from "./config"
 client.config = config
 
 const { port, prefix } = config
-// consider adding moment to parse start dates and end dates
-function formatDate(date: string | number | Date) {
-  var d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
 
-  if (month.length < 2) month = '0' + month;
-  if (day.length < 2) day = '0' + day;
-
-  return [year, month, day].join('-');
-}
-
-/**
- * This comment _supports_ [Markdown](https://marked.js.org/)
- * 
- * ```typescript
- * // Or you can specify the language explicitly
- * const instance = new MyClass();
- * ```
- */
-
-interface TodoObj {
-  start_date: string;
-  end_date: string;
-  name: string;
-  category: string;
-  priority: string;
-  id: string;
-}
 // eventually get rid of this class and use the tutorial approach
 class DiscordBot {
   /**
