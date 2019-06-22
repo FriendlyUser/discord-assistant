@@ -53,7 +53,9 @@ if(process.env.NODE_ENV != 'testing')
 
   app.use(async ctx => 
     { ctx.body = '<h1>Graphql</h1> <p>Check at Graphql port 9000</p>' }
-  ); 
+  )
+  var hour = new Date().getHours();
+  console.log(hour)
   setInterval( function() { 
     var hour = new Date().getHours();
     console.log(hour)
