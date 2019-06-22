@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-prod": "ts-node ./server.ts",
+    "start-prod": "cross-env NODE_ENV=production ts-node ./server.ts",
     "start-dev": "cross-env NODE_ENV=development ts-node ./server.ts",
-    "start": "ts-node ./server.ts",
+    "start": "cp .env dist && cd dist && node ./server.js",
     "test": "cross-env NODE_ENV=testing ts-mocha",
     "coverage": "nyc -r lcov npm run test",
     "build": "tsc",

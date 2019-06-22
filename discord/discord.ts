@@ -24,6 +24,7 @@ class DiscordBot {
    */
   logging: any;
     constructor () {
+        // consider adding static function to dump messages to channel for debug purposes
         // read config if added
         // this._handle_messages()
         this.logging = logger
@@ -31,6 +32,7 @@ class DiscordBot {
           if (err) return console.error(err)
           files.forEach(async file => {
             // console.log(file)
+            if (!file.endsWith(".ts") && !file.endsWith(".js")) return;
             const event = await require(`./events/${file}`)
             // console.log(event)
             let event_name = file.split(".")[0];
@@ -44,7 +46,7 @@ class DiscordBot {
         fs.readdir("./discord/commands/", (err: any, files: { forEach: (arg0: (file: any) => void) => void }) => {
           if (err) return console.error(err)
           files.forEach(file => {
-            if (!file.endsWith(".ts")) return
+            if (!file.endsWith(".ts") && !file.endsWith(".js")) return
             let props = require(`./commands/${file}`)
             let commandName = file.split(".")[0]
             console.log(`Attempting to load command ${commandName}`)
