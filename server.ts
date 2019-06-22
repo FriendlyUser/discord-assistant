@@ -56,8 +56,9 @@ if(process.env.NODE_ENV != 'testing')
   ); 
   setInterval( function() { 
     var hour = new Date().getHours();
+    console.log(hour)
     //   // changing 13 < 23 to a 1 and 23 cause why not, i got plenty of heroku time I'm not using
-    if ((hour >= 13 && hour < 23)) {
+    if ((hour >= 1 && hour < 13)) {
           https.get(`https://dli-discord-assist.herokuapp.com/`);
           https.get(`https://dli-discord-assist.herokuapp.com/:${port}`);
     }
