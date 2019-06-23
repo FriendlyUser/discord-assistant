@@ -60,7 +60,7 @@ if(process.env.NODE_ENV != 'testing')
     var hour = new Date().getHours();
     //console.log(hour)
     //   // changing 13 < 23 to a 1 and 23 cause why not, i got plenty of heroku time I'm not using
-    if ((hour >= 1 && hour < 13)) {
+    if ((hour >= 1 && hour < 4 || hour >= 17 && hour <= 24)) {
           https.get(`https://dli-discord-assist.herokuapp.com/`);
           https.get(`https://dli-discord-assist.herokuapp.com/:${port}`);
     }
