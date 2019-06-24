@@ -29,7 +29,7 @@ export const run = async (client: any, message: any, args: any) => {
         currentCategory = cat;
       }
       output += `${prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} :: ${c.help.description}\n`;
-    });
+    })
     message.channel.send(output, {code: "asciidoc", split: { char: "\u200b" }});
   } else {
     // Show individual command's help.
@@ -45,7 +45,7 @@ export const run = async (client: any, message: any, args: any) => {
       message.channel.send(help_msg, {code:"asciidoc"})
     }
   }
-};
+}
 
 export const conf: ConfObj = {
   enabled: true,

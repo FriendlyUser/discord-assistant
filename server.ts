@@ -54,17 +54,15 @@ if(process.env.NODE_ENV != 'testing')
   app.use(async ctx => 
     { ctx.body = '<h1>Graphql</h1> <p>Check at Graphql port 9000</p>' }
   )
-  var hour = new Date().getHours();
-  console.log(hour)
-  setInterval( function() { 
-    var hour = new Date().getHours();
-    //console.log(hour)
+  var hour = new Date().getHours()
+  setInterval(() => { 
+    var hour = new Date().getHours()
     //   // changing 13 < 23 to a 1 and 23 cause why not, i got plenty of heroku time I'm not using
     if ((hour >= 0 && hour < 4 || hour >= 17 && hour <= 24)) {
-          https.get(`https://dli-discord-assist.herokuapp.com/`);
-          https.get(`https://dli-discord-assist.herokuapp.com/:${port}`);
+          https.get(`https://dli-discord-assist.herokuapp.com/`)
+          https.get(`https://dli-discord-assist.herokuapp.com/:${port}`)
     }
-  } , 27*1000*60); 
+  } , 27*1000*60)
 }
 
 export default server
