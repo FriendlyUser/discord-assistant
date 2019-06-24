@@ -8,7 +8,7 @@ module.exports = async (client: any, message: any) => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     if (message.author == client.user) return
     // Ignore messages not starting with the prefix (in config.json)
-    let listcommands = ['addtask']
+    let listcommands: string[] = ['addtask','getstock']
     let args: string[] = []
     let command: string = ''
     // check for commas, if so parse arguments for commas

@@ -74,11 +74,11 @@ class DiscordBot {
     }
     static async get_fake_crypto_news() {
       // https://us-central1-openvpn-238104.cloudfunctions.net/function-2
-      return fetch('https://us-central1-openvpn-238104.cloudfunctions.net/function-2')
+      return fetch(config.fakeNewsURL)
       .then((res: { text: () => void; }) => res.text())
       .then((body: any) => { 
         return body
-      });
+      })
     }
     _handle_messages () {
       client.on('message', 

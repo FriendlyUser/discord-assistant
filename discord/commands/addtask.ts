@@ -3,10 +3,10 @@
  * Create a new task by prompting user for name, category and priority
  */
 import { addTaskQuery } from '../util/queries'
-import { HelpObj, ConfObj } from '../types/interfaces';
+import { HelpObj, ConfObj } from '../types/interfaces'
 const { request } = require('graphql-request')
 export const run = async (client: any, message: any, args: any): Promise<any> => { 
-  const { prefix, port } = client.config
+  const { port } = client.config
   let start_date = new Date()
   let end_date = start_date
   end_date.setDate(end_date.getDate() + 7);

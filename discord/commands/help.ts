@@ -42,7 +42,7 @@ export const run = async (client: any, message: any, args: any) => {
       \n${description}
       \nusage:: ${usage} ${list_args !== undefined ? `\npromptArgs:: ${list_args.join(", ")}` : ''}
       \naliases:: ${aliases.join(", ")}\n= ${name} =`
-      message.channel.send(help_msg, {code:"asciidoc"});
+      message.channel.send(help_msg, {code:"asciidoc"})
     }
   }
 };
