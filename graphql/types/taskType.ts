@@ -10,7 +10,8 @@ const TaskType = new GraphQLObjectType({
     start_date: { type: GraphQLString },
     end_date: { type: GraphQLString },
     category: { type: GraphQLString },
-    priority: { type: GraphQLString }
+    priority: { type: GraphQLString },
+    url: { type: GraphQLString }
   })
 })
 

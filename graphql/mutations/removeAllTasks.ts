@@ -7,7 +7,7 @@ module.exports = {
     args: {
         id: { type: GraphQLString}
     },
-    resolve(parent: any, args: { id: any, name: any; start_date: any; end_date: any; category: any; priority: any; }) 
+    resolve(parent: any, args: { id: any, name: any; start_date: any; end_date: any; category: any; priority: any; url: any; }) 
     {
         return Tasks.deleteMany({}).exec()
         .then((deletedTasks: any) => deletedTasks)

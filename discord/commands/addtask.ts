@@ -10,12 +10,12 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
   let start_date = new Date()
   let end_date = start_date
   end_date.setDate(end_date.getDate() + 7);
-  const [name="", category="other", priority="normal"] = args
+  const [name="", category="other", priority="normal", url="https://github.com/FriendlyUser"] = args
   if(args.length < 1) {
       message.channel.send('Please Enter more Arguments and try again.')
       return
   }
-  const query = addTaskQuery(name, start_date, end_date, category, priority)
+  const query = addTaskQuery(name, start_date, end_date, category, priority, url)
   // localhost works because hosted on same server
   // this.logging.info(query)
   request(`http://localhost:${port}/graphql`, query)
