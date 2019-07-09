@@ -4,12 +4,12 @@
  */
 const { request } = require('graphql-request')
 import { ConfObj, HelpObj } from '../types/interfaces'
-import { removeTask } from '../util/queries'
+import { updateTask } from '../util/queries'
 export const run = async (client: any, message: any, args: any) => { 
     const { port } = client.config
-    const {id} = args
     // TODO export list of queries to text file
-    let query = removeTask(id)
+    const {id} = args
+    let query = updateTask(id)
     request(`http://localhost:${port}/graphql`, query)
     .then((null_data: { [x: string]: any; }) => {
         message.channel.send(JSON.stringify(null_data))
@@ -24,8 +24,8 @@ export const conf: ConfObj = {
 };
 
 export const help: HelpObj = {
-  name: "removetask",
+  name: "updatetask",
   category: "Todo",
   description: "Remove a specified task",
-  usage: `removetask <task id>`,
+  usage: `updatetask <task id>`,
 };

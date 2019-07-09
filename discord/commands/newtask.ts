@@ -24,8 +24,8 @@ export const run = async (client: any, message: any) => {
           let start_date = new Date()
           let end_date = start_date
           end_date.setDate(end_date.getDate() + 7);
-          const [name, category, priority] = content
-          const query = addTaskQuery(name, start_date, end_date, category, priority)
+          const [name, category, priority, url="https://friendlyUser.github.com"] = content
+          const query = addTaskQuery(name, start_date, end_date, category, priority, url)
           // localhost works because hosted on same server
           request(`http://localhost:${port}/graphql`, query)
           .then((data: any) => {
