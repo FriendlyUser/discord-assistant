@@ -10,16 +10,18 @@ module.exports = {
     resolve(parent: any, args: { id: any, name: any; start_date: any; end_date: any; category: any; priority: any; url: any; }) 
     {
         console.log("Retarded args")
+        // keep console log statements here until the end
         console.log(args)
-        return Tasks.findById(args.id)
+        console.log(args.id)
+        return Tasks.findById(args.id).exec() 
         .then((task: { id: any, get: () => any; remove: () => void; }) =>  {
             console.log(task)
-            console.log(task.id)
+            // console.log(task.id)
             if ( task && task.id == args.id) {
-                task.remove()
+                return task.remove()
             }
             else {
-                // console.log(task.id)
+                console.log("Task not deleted", "possibly due to race conditions")
                 return task
             }
         })

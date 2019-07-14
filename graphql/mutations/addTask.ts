@@ -19,7 +19,7 @@ module.exports = {
             end_date: args.end_date,
             category: args.category,
             priority: args.priority,
-            url: {type: GraphQLString}
+            url: args.url
         })
         return newTasks.save()
     },

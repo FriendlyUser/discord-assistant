@@ -9,6 +9,8 @@ export const run = async (client: any, message: any, args: any) => {
     const { port } = client.config
     // TODO export list of queries to text file
     const {id} = args
+    // get data for current task and then display message allowing user to update said task
+    // or have remove on embeds propogate and delete the task
     let query = updateTask(id)
     request(`http://localhost:${port}/graphql`, query)
     .then((null_data: { [x: string]: any; }) => {

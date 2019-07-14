@@ -39,6 +39,19 @@ export const run = async (client: any, message: any) => {
                     }
                 }
             })
+            .then((embedMessage: any) => {
+                embedMessage.react('😄')
+                .then((success: any) => {
+                    console.log(success)
+                })
+                .catch((error: any) => {
+                    console.log(error)
+                })
+            })
+            .catch((error: any) => {
+                console.log(error)
+            })
+
         }) 
     })
 }
