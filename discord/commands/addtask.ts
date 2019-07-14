@@ -11,6 +11,7 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
   let end_date = start_date
   end_date.setDate(end_date.getDate() + 7);
   const [name="", category="other", priority="normal", url="https://github.com/FriendlyUser"] = args
+  console.log(args)
   if(args.length < 1) {
       message.channel.send('Please Enter more Arguments and try again.')
       return
