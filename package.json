@@ -10,7 +10,7 @@
     "test": "cross-env NODE_ENV=testing ts-mocha",
     "coverage": "nyc -r lcov npm run test",
     "build": "tsc",
-    "docs": "typedoc --theme node_modules/typedoc-color-theme/bin/minimal --readme ReadMe.rst --excludeExternals --externalPattern **/node_modules/** --ignoreCompilerErrors --name discord-bot --mode file --out public/ ."
+    "docs": "typedoc --readme ReadMe.rst --excludeExternals --externalPattern **/node_modules/** --ignoreCompilerErrors --name discord-bot --mode file --out public/ ."
   },
   "keywords": [],
   "author": "",
