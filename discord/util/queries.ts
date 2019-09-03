@@ -1,4 +1,5 @@
 import { formatDate } from './helper'
+import { TodoObj } from '../types/interfaces'
 
 export const addTaskQuery = (name: String, start_date: Date, end_date: Date, category: String, priority: String, url: String) => {
     return `mutation {
@@ -35,7 +36,7 @@ export const removeAllTasks = () => {
     }`
 }
 
-export const removeTask = (id: any) => {
+export const removeTask = (id: string) => {
     return `mutation {
         removeTask(id: "${id}") {
             id name start_date end_date category priority
@@ -46,9 +47,15 @@ export const removeTask = (id: any) => {
 
 
 // figure out how to update tasks later, implement later
-export const updateTask = (id: any) => {
+export const updateTask = (obj: TodoObj) => {
+    let update_values: string = ''
+    Object.keys(obj).forEach( (key: string, index: number) => {
+        // skip for null values on the object
+        if (obj[key] !== '') 
+            update_values += `${key}: ${obj[key]}`
+    })
     return `mutation {
-        updateTask(id: "${id}") {
+        updateTask(id: "${update_values}") {
             name 
             start_date 
             end_date 

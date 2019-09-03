@@ -8,7 +8,7 @@ module.exports = async (client: any, message: any) => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;
     if (message.author == client.user) return
     // Ignore messages not starting with the prefix (in config.json)
-    let listcommands: string[] = ['addtask','getstock']
+    let listcommands: string[] = ['addtask', 'getstock', 'updatetask']
     let args: string[] = []
     let command: string = ''
     // check for commas, if so parse arguments for commas
@@ -27,7 +27,6 @@ module.exports = async (client: any, message: any) => {
         args = message.content.slice(prefix.length).split(' ')
         command = args.shift().toLowerCase()
     }
-
     // Grab the command data from the client.commands Enmap
     const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command))
     // using this const varName = thing OR otherthign; is a pretty efficient

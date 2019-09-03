@@ -8,12 +8,14 @@
   * @property id mongodb id
   */
  export interface TodoObj {
-  start_date: string;
-  end_date: string;
+  [index: string]: string;
+  start_date?: string;
+  end_date?: string;
   name: string;
-  category: string;
-  priority: string;
+  category?: string;
+  priority?: string;
   id: string;
+  url?: string;
 }
 
 /**

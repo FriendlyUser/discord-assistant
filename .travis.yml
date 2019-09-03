@@ -18,9 +18,14 @@ script:
   - npm install coveralls
   - npm install mocha-lcov-reporter
   - NODE_ENV=testing istanbul cover ./node_modules/ts-mocha/bin/ts-mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
-  - npm install typedoc-color-theme
   - npm run docs
   - npm run build
-
 after_success:
   - npm run coveralls || true
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master
