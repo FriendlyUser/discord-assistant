@@ -2,7 +2,7 @@ sudo: true
 
 language: node_js
 
-node_js: stable
+node_js: 10
 
 services:
   - mongodb
@@ -19,7 +19,6 @@ script:
   - npm install mocha-lcov-reporter
   - NODE_ENV=testing istanbul cover ./node_modules/ts-mocha/bin/ts-mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
   - npm run docs
-  - npm run build
 after_success:
   - npm run coveralls || true
 deploy:
