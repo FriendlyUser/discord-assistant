@@ -26,7 +26,6 @@
     "koa-mount": "^4.0.0",
     "mongoose": "^5.5.12",
     "node-fetch": "^2.6.0",
-    "typedoc-color-theme": "^0.1.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
