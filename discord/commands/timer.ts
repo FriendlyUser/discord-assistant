@@ -3,7 +3,7 @@
  * Create a new task by prompting user for name, category and priority
  */
 import { ConfObj, HelpObj } from '../types/interfaces'
-export const run = async (client: any, message: any, args: any) => { 
+export const run = async (client: any, message: any, args: any) => {
   if(args.length < 1) {
     message.channel.send('Please Enter more Arguments and try again.')
     return

@@ -1,27 +1,43 @@
-import { HelpObj, ConfObj } from '../types/interfaces'
-// https://stock-data-api.now.sh/api/echo.go?quotes=AAPL,BB,GOOG,MSFT
+import { HelpObj, ConfObj, TodoObj } from '../types/interfaces'
+import { queryAllTasks } from '../util/queries'
+const { request } = require('graphql-request')
 export const run = async (client: any, message: any, args: any): Promise<any> => { 
-    const { stockURL } = client.config
-    let args_nospace = args.toString().replace(/\s/g, '')
-    let endpoint: string = `${stockURL}api/echo.go?quotes=${args_nospace}`
-    // export all tasks as a latex object or csv to dump into latex
-    return fetch(endpoint)
-      .then((res: { text: () => void; }) => res.text())
-      .then((body: any) => { 
-        message.channel.send(body, {code:"js"})
+    
+  const { port } = client.config
+  const query = queryAllTasks()
+  let now = new Date();
+  let start_time = `${now.getFullYear()}/${now.getMonth()}/${now.getDay()}` 
+  let TexTable = `\`\`\`js
+\\textbf{Todo List ${start_time}}
+
+\\begin{tabular}{p{3cm} c c c c}`
+  request(`http://localhost:${port}/graphql`, query)
+  .then((query_all_tasks: { [x: string]: any; }) => {
+      let todo_list = query_all_tasks.queryAllTasks
+      TexTable += `Name & Category & Priority \\\\ \\hline`
+      todo_list.forEach( (todo: TodoObj) => {
+        let {name} = todo
+        let parsed = name.replace(/(?:https?|ftp):\/\/[\n\S]+/g, '');
+        TexTable += ` ${parsed} & ${todo.category} & ${todo.priority} \\\\ \\hline`
       })
-  }
+      TexTable += `
+      \\end{tabular}
+      `
+      TexTable += '```'
+      message.channel.send(TexTable)
+  })
+}
   
-  export const conf: ConfObj = {
-    enabled: true,
-    guildOnly: true,
-    aliases: ["latex", "tex"],
-    permLevel: "Administrator"
-  }
+export const conf: ConfObj = {
+  enabled: true,
+  guildOnly: true,
+  aliases: ["latex", "tex"],
+  permLevel: "Administrator"
+}
   
-  export const help: HelpObj = {
-    name: "latex",
-    category: "Util",
-    description: `Outputs an file that can be used in my latex notes`,
-    usage: `latex csv|tex`,
+export const help: HelpObj = {
+  name: "latex",
+  category: "Util",
+  description: `Outputs an file that can be used in my latex notes`,
+  usage: `latex csv|tex`,
 }
