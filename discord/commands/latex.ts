@@ -8,8 +8,7 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
   let now = new Date();
   let start_time = `${now.getFullYear()}/${now.getMonth()}/${now.getDay()}` 
   let TexTable = `\`\`\`js
-\\textbf{Todo List ${start_time}}
-
+\\begin{table}
 \\begin{tabular}{p{3cm} c c c c}`
   request(`http://localhost:${port}/graphql`, query)
   .then((query_all_tasks: { [x: string]: any; }) => {
@@ -22,6 +21,8 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
       })
       TexTable += `
       \\end{tabular}
+      \\caption{\\textbf{Todo List ${start_time}}}
+      \\end{table}
       `
       TexTable += '```'
       message.channel.send(TexTable)
