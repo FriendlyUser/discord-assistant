@@ -23,6 +23,7 @@
     "graphql-request": "^1.8.2",
     "koa": "^2.7.0",
     "koa-graphql": "^0.8.0",
+    "koa-router": "^7.4.0",
     "koa-mount": "^4.0.0",
     "mongoose": "^5.5.12",
     "node-fetch": "^2.6.0",
