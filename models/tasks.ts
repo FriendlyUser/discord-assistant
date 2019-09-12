@@ -6,6 +6,9 @@ const Schema = mongoose.Schema;
   an ID by default to all schemas
 */
 
+/**
+ * @author David Li
+ */
 const TaskSchema = new Schema({
   name: String,
   start_date: Date,
