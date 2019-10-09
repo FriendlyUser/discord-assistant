@@ -9,8 +9,8 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
   const { port } = client.config
   let start_date = new Date()
   let end_date = start_date
-  end_date.setDate(end_date.getDate() + 7);
-  const [name="", category="other", priority="normal", url="https://github.com/FriendlyUser"] = args
+  end_date.setDate(end_date.getDate() + 7)
+  const [name="", category="other",  url="https://github.com/FriendlyUser", priority="normal"] = args
   if(args.length < 1) {
       message.channel.send('Please Enter more Arguments and try again.')
       return
@@ -40,6 +40,6 @@ export const help: HelpObj = {
   name: "addtask",
   category: "TodoList",
   description: "Add new Task to DB, with comma seperated list",
-  usage: `addtask <name>, <priority>, <category>`,
-  list_args: ["name", "category", "priority"],
+  usage: `addtask <name>, <url>, <category>, <priority`,
+  list_args: ["name", "url", "category", "priority"],
 }
