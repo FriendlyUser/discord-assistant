@@ -18,7 +18,7 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
     .then((res: { json: () => void; }) => res.json())
     .then((body: any) => {
       message.channel.send(String(body))
-      const { coord, weather, base, 
+      const { coord, weather=[], base, 
         main, wind, visibility,
         clouds, sys, timezone, 
         id, name 
