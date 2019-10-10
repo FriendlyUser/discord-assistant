@@ -2,7 +2,7 @@
 
 ### Personal Assistant Discord Bot
 
-This discord bot is a fun experiment by me to learn new technologies while having a nice bot that can take my daily tasks and eventually do anything else I feel is necessary.
+This discord bot is a fun experiment by me to learn new technologies while having a nice bot that can take my daily tasks and eventually do anything else I feel is necessary. Added support to weather api.
 
 Created Using
 * Typescript
