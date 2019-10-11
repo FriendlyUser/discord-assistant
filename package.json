@@ -23,10 +23,11 @@
     "graphql-request": "^1.8.2",
     "koa": "^2.7.0",
     "koa-graphql": "^0.8.0",
-    "koa-router": "^7.4.0",
     "koa-mount": "^4.0.0",
+    "koa-router": "^7.4.0",
     "mongoose": "^5.5.12",
     "node-fetch": "^2.6.0",
+    "tsc-openweather": "^0.2.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
@@ -40,7 +41,6 @@
     "@types/winston": "^2.4.4",
     "chai": "^4.2.0",
     "cross-env": "^5.2.0",
-    "koa-router": "^7.4.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.1",
     "source-map-support": "^0.5.12",
