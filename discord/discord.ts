@@ -71,6 +71,7 @@ class DiscordBot {
     static login(token: string) {
         // if (this.bot) return log.general.error('Cannot login when already logged in')
         client.login(token)
+        // paste stock prices and weather
     }
     static async get_fake_crypto_news() {
       // https://us-central1-openvpn-238104.cloudfunctions.net/function-2

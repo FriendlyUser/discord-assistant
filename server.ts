@@ -37,18 +37,19 @@ app.on('error', err => {
 
 if(process.env.NODE_ENV != 'testing')
 {
-  new DiscordBot()
+  let bot = new DiscordBot()
 
   app.use(async ctx => 
     { ctx.body = '<h1>Graphql</h1> <p>Check at Graphql port 9000</p>' }
   )
-  var hour = new Date().getHours()
   setInterval(() => { 
     var hour = new Date().getHours()
     //   // changing 13 < 23 to a 1 and 23 cause why not, i got plenty of heroku time I'm not using
     if ((hour >= 0 && hour < 4 || hour >= 17 && hour <= 24)) {
           https.get(`https://dli-discord-assist.herokuapp.com/`)
           https.get(`https://dli-discord-assist.herokuapp.com/:${port}`)
+
+          // run function to check if messages should be posted about stock prices
     }
   } , 27*1000*60)
 }
