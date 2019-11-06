@@ -32,7 +32,7 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
       sys: Object, timezone: String,
       id: Number, name: String } = currentWeather
     const { main: weatherMain, description }: { main?: String, description?: String } = weather[0]
-    const { temp_min, temp_max }: {temp_min?: Number, temp_max?: Number} = main
+    const { temp_min = 0, temp_max = 0 }: {temp_min?: number, temp_max?: number} = main
     const { sunrise }: { sunrise?: Number} = sys
     const { lon, lat }: { lon?: Number, lat?: Number } = coord
     const { speed, deg }: { speed?: Number, deg?: Number } = wind
@@ -48,7 +48,7 @@ export const run = async (client: any, message: any, args: any): Promise<any> =>
           description: `Location (${lon}, ${lat})`,
           fields: [{
                   name: "Temp Range",
-                  value: `${temp_min} °C to ${temp_max} °C`
+                  value: `${temp_min - 273.15} °C to ${temp_max - 273.15} °C`
               },
               {
                   name: "Visibility",
