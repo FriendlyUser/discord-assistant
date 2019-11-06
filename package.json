@@ -56,7 +56,12 @@
       ".tsx"
     ],
     "exclude": [
-      "**/*.d.ts"
+      "**/*.d.ts",
+      "./discord/commands/*.ts",
+      "./discord/events/*.ts",
+      "./discord/util/*.ts",
+      "./discord/types/*.ts",
+      "./discord/**/*.ts"
     ],
     "reporter": [
       "html"
