@@ -8,7 +8,9 @@ module.exports = async (client: any) => {
     client.user.setActivity(`Fun and help`, {type: "PLAYING"})
     // Get weather info and stock data
     const channel = client.channels.get("571860897887289410")
-    fetch('https://my-go-project.davidli012345.now.sh/api/dsJSON.go?quotes=BB.TO,NEXCF')
+    const baseUrl = 'https://my-go-project.davidli012345.now.sh/api'
+    const quotes = 'quotes=BB.TO,NEXCF,ABT.TO,AT.TO'
+    fetch(`${baseUrl}/dsJSON.go?${quotes}`)
         .then((resp: { json: () => void; }) => {
             return resp.json()
         })
@@ -19,7 +21,7 @@ module.exports = async (client: any) => {
         .catch((err: any) => {
             console.log(err)
         })
-    fetch('https://my-go-project.davidli012345.now.sh/api/ds.go?quotes=BB.TO,NEXCF')
+    fetch(`${baseUrl}/ds.go?${quotes}`)
         .then((resp: { text: () => void; }) => {
             return resp.text()
         })
