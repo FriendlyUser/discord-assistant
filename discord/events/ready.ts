@@ -9,7 +9,7 @@ module.exports = async (client: any) => {
     // Get weather info and stock data
     const channel = client.channels.get("571860897887289410")
     const baseUrl = 'https://my-go-project.davidli012345.now.sh/api'
-    const quotes = 'quotes=BB.TO,NEXCF,ABT.TO,AT.TO'
+    const quotes = 'quotes=BB.TO,NEXCF,ABT.TO,AT.TO,ACB.TO,WMT.TO,CGC'
     fetch(`${baseUrl}/dsJSON.go?${quotes}`)
         .then((resp: { json: () => void; }) => {
             return resp.json()
