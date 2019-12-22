@@ -73,9 +73,32 @@ class DiscordBot {
         client.login(token)
     }
 
-    static postStocks() {
+    static async postStocks() {
       // replace with meaningful content
-      client.channels.get('CHANNEL ID').send('Hello here!')
+      const {stockQuotes: quotes, stockPriceUrl: baseUrl, stockChannel: discordChannel} = client.config
+      const channel = client.channels.get(discordChannel)
+      fetch(`${baseUrl}/dsJSON.go?${quotes}`)
+          .then((resp: { json: () => void; }) => {
+              return resp.json()
+          })
+          .then((stocks: any) => {
+              console.log(stocks)
+              channel.send(`${stocks}`)
+          })
+          .catch((err: any) => {
+              console.log(err)
+          })
+      fetch(`${baseUrl}/ds.go?${quotes}`)
+          .then((resp: { text: () => void; }) => {
+              return resp.text()
+          })
+          .then((stocks: any) => {
+              console.log(stocks)
+              channel.send(`\`\`\`${stocks}\`\`\``)
+          })
+          .catch((err: any) => {
+              console.log(err)
+          })
     }
     static async get_fake_crypto_news() {
       // https://us-central1-openvpn-238104.cloudfunctions.net/function-2

@@ -48,7 +48,12 @@ if(process.env.NODE_ENV != 'testing')
     if ((hour >= 0 && hour < 4 || hour >= 17 && hour <= 24)) {
           https.get(`https://dli-discord-assist.herokuapp.com/`)
           https.get(`https://dli-discord-assist.herokuapp.com/:${port}`)
-
+          var currDate = new Date()
+          // only post on monday to friday
+          // TODO make it only for days the market is open
+          if(currDate.getDate() > 0 && currDate.getDate() < 6) {
+            DiscordBot.postStocks()
+          }
           // run function to check if messages should be posted about stock prices
     }
   } , 27*1000*60)
