@@ -51,7 +51,7 @@ if(process.env.NODE_ENV != 'testing')
           var currDate = new Date()
           // only post on monday to friday
           // TODO make it only for days the market is open
-          if(currDate.getDate() > 0 && currDate.getDate() < 6) {
+          if(currDate.getDate() > 0 || currDate.getDate() < 6) {
             DiscordBot.postStocks()
           }
           // run function to check if messages should be posted about stock prices
