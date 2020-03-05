@@ -12,7 +12,7 @@ test:
   variables:
     MONGO_URI: 'mongodb://mongodb:27017/koa-mongo-discord'
   before_script:
-    - npm install
+    - npm install --prefer-offline --no-audit
     # - chmod +x setup_env.sh && ./setup_env.sh
     - echo $MONGO_URI >> .env
 # https://medium.com/@chrishullman/js-testing-mocha-chai-and-istanbul-oh-my-5e68e0cd2e81
@@ -30,7 +30,7 @@ build-js:
   image: node:10
   stage: build
   before_script:
-    - npm install
+    - npm install --prefer-offline --no-audit
     # - chmod +x setup_env.sh && ./setup_env.sh
     - echo $MONGO_URI >> .env
     - echo $MONGO_URI
@@ -53,9 +53,9 @@ pages:
     - test
     - build-js
   before_script:
-    - npm install
-    - npm install -g typedoc
-    - npm install typedoc-color-theme
+    - npm install --prefer-offline --no-audit
+    - npm install -g typedoc --prefer-offline --no-audit
+    - npm install typedoc-color-theme --prefer-offline --no-audit
   script:
     - npm run docs
     - mv coverage public || true
