@@ -53,7 +53,10 @@ if(process.env.NODE_ENV != 'testing')
           // TODO make it only for days the market is open
           if(currDate.getDay() > 0 || currDate.getDay() < 6) {
             if (Math.floor(Math.random() * Math.floor(10)) > 6) {
-              DiscordBot.postStocks()
+              // don't need stock posting anymore, kinda out of date
+              // will redo with the python new stock bot
+              // which can better leverage my packages.
+              // DiscordBot.postStocks()
             }
           }
           // run function to check if messages should be posted about stock prices
